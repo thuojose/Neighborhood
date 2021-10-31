@@ -9,7 +9,10 @@ urlpatterns = [
     path('notifications', views.notification, name='notifications'),
     path('blog', views.blog, name='blog'),
     path('health', views.health, name='health'),
-    
+    path('authorities', views.authorities, name='authorities'),
+    path('businesses', views.businesses, name='businesses'),
+    path('view/blog/(\d+)', views.view_blog, name='view_blog'),
+    path('my-profile/', views.my_profile, name='my-profile'),
 ]
 
 if settings.DEBUG:
