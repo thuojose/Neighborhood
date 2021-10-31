@@ -13,8 +13,9 @@ urlpatterns = [
     path('businesses', views.businesses, name='businesses'),
     path('view/blog/(\d+)', views.view_blog, name='view_blog'),
     path('my-profile/', views.my_profile, name='my-profile'),
-    pat('user/(?P<username>\w{0,50})', views.user_profile, name = 'user-profile'),
-    
+    path('user/(?P<username>\w{0,50})', views.user_profile, name = 'user-profile'),
+    path('new/blogpost$', views.new_blogpost, name='new-blogpost'),
+     
 ]
 
 if settings.DEBUG:
