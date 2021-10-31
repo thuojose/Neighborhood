@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Neighbourhood, healthservices,Authorities,Business,Health,notifications,Profile
+from .models import Neighbourhood, healthservices,Authorities,Business,Health,notifications,Profile,BlogPost,Comment
 from .forms import notificationsForm, ProfileForm, BlogPostForm, BusinessForm, CommentForm
 import datetime as datetime
 import json
@@ -177,3 +177,27 @@ def new_business(request):
         form = BusinessForm()
 
     return render(request, 'business_form.html', {"form":form})
+
+
+@login_required(login_url='/accounts/login/')
+def new_notification(request):
+    current_user = request.user
+    profile = Profile.objects.get(username = current_user)
+
+    if request.method == "POST":
+        form = notificationsForm(request.POST, request.FILES)
+        if form.is_valid():
+            notification = form.save(commit=False)
+            notification.author = current_user
+            notification.neighbourhood = profile.neighbourhood
+            notification.save()
+
+            if notification.priority == 'High Priority':
+                send_priority_email(profile.name, profile.email, notification.title, notification.notification, notification.author, notification.neighbourhood)
+
+        return HttpResponseRedirect('/notifications')
+
+    else:
+        form = notificationsForm()
+
+    return render(request, 'notifications_form.html', {"form":form})
