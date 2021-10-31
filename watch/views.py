@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Neighbourhood, healthservices,Authorities
+from .models import Neighbourhood, healthservices,Authorities,Business
 from django.db.models import Q
 from django.contrib.auth.models import User
 
@@ -52,3 +52,12 @@ def authorities(request):
     authorities=Authorities.objects.filter(neighbourhood=profile.neighbourhood)
 
     return render(request, 'authorities.html', {"authorities":authorities})
+
+
+@login_required(login_url='/accounts/login/')
+def businesses(request):
+    current_user = request.user
+    profile = Profile.objects.get(username = current_user)
+    businesses = Business.objects.filter(neighbourhood=profile.neighbourhood)
+
+    return render(request, 'businesses.html', {"businesses":businesses})
