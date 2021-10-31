@@ -95,3 +95,15 @@ class Authorities(models.Model):
 
     def __str__(self):
         return self.name
+    
+    
+class Profile(models.Model):
+    avatar = models.ImageField(upload_to='avatars/', blank = True)
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    bio = HTMLField()
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
