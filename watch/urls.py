@@ -19,6 +19,7 @@ urlpatterns = [
     path('create/profile$',views.create_profile, name='create-profile'),
     path('new/notification$', views.new_notification, name = 'new-notification'),
     path('update/profile$', views.update_profile, name = 'update-profile'),
+    path('search/', views.search_results, name = 'search_results'),
      
 ]
 
