@@ -2,9 +2,10 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Neighbourhood, healthservices,Authorities,Business
+from .models import Neighbourhood, healthservices,Authorities,Business,Health,notifications,Profile
 from .forms import notificationsForm, ProfileForm, BlogPostForm, BusinessForm, CommentForm
 import datetime as datetime
+import json
 from django.db.models import Q
 from django.contrib.auth.models import User
 
@@ -134,3 +135,24 @@ def update_profile(request):
         form = ProfileForm()
 
     return render(request, 'update_profile.html', {"form":form})
+
+
+@login_required(login_url='/accounts/login/')
+def new_blogpost(request):
+    current_user = request.user
+    profile = Profile.objects.get(username=current_user)
+
+    if request.method == 'POST':
+        form  = BlogPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            blogpost = form.save(commit = False)
+            blogpost.username = current_user
+            blogpost.neighbourhood = profile.neighbourhood
+            blogpost.save()
+
+        return HttpResponseRedirect('/blog')
+
+    else:
+        form = BlogPostForm()
+
+    return render(request, 'blogpost_form.html', {"form":form})
