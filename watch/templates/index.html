@@ -1,15 +1,15 @@
-{% extends 'base.html' %} {% load static %} {% load staticfiles %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% load staticfiles %}{% block content %}
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 collage">
             <a href="{% url 'notifications' %}">
-
+                <img src="{% static 'img/alert.jpg' %}" alt="" class="card-img-top">
                 <h4 class="centered">Alerts</h4>
             </a>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 collage">
             <a href="{% url 'blog' %}">
-
+                <img src="{% static 'img/neighbourhood.jpg' %}" alt="" class="card-img-top">
                 <h4 class="centered">Neighbourhood Posts</h4>
             </a>
         </div>
@@ -17,19 +17,19 @@
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 collage">
             <a href="{% url 'health' %}">
-
+                <img src="{% static 'img/health.jpg' %}" alt="" class="card-img-top">
                 <h4 class="centered">Health Services</h4>
             </a>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 collage">
             <a href="{% url 'businesses' %}">
-
+                <img src="{% static 'img/business.jpg' %}" alt="" class="card-img-top">
                 <h4 class="centered">Businesses</h4>
             </a>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 collage">
             <a href="{% url 'authorities' %}">
-
+                <img src="{% static 'img/authority.jpg' %}" alt="" class="card-img-top">
                 <h4 class="centered">Authorities</h4>
             </a>
         </div>
